@@ -1,4 +1,4 @@
-#
+# -*- coding: UTF-8 -*-
 # Cookbook Name:: openstack-omnibus
 # Recipe:: node_attributes
 #
@@ -22,7 +22,6 @@ enabled_services = node['openstack']['omnibus']['enabled_services']
 # this is not ideal, but he stackforge cookbooks make this a reality
 if enabled_services.include? 'identity'
   %w{keystone mysql_python postgresql_python memcache_python}.each do |type|
-    #print "HERE"
     node.set['openstack']['identity']['platform']["#{type}_packages"] = []
   end
 end

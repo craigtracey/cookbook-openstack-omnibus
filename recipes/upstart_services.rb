@@ -1,4 +1,4 @@
-#
+# -*- coding: UTF-8 -*-
 # Cookbook Name:: openstack-omnibus
 # Recipe:: upstart_services
 #
@@ -33,13 +33,13 @@ project_services.each do |project|
       source 'upstart/openstack-service.erb'
       mode 0644
       variables(
-        :upstart_job_dir => upstart_job_dir,
-        :upstart_job_suffix => upstart_job_suffix,
-        :service_name => service,
-        :service_command => service_params.command,
-        :service_user => service_params.user,
-        :project_venv => project_venv,
-        :project_config_dir => project_config_dir
+        upstart_job_dir: upstart_job_dir,
+        upstart_job_suffix: upstart_job_suffix,
+        service_name: service,
+        service_command: service_params.command,
+        service_user: service_params.user,
+        project_venv: project_venv,
+        project_config_dir: project_config_dir
       )
       # dont restart for now...or ever perhaps
       # notifies :restart, "service[#{service}]", :delayed

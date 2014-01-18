@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 name             'openstack-omnibus'
 maintainer       'Craig Tracey'
 maintainer_email 'craigtracey@gmail.com'

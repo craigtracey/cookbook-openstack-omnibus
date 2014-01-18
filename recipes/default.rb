@@ -1,4 +1,4 @@
-#
+# -*- coding: UTF-8 -*-
 # Cookbook Name:: openstack-omnibus
 # Recipe:: default
 #

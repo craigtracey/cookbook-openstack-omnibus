@@ -1,4 +1,4 @@
-#
+# -*- coding: UTF-8 -*-
 # Cookbook Name:: openstack-omnibus
 # Attributes:: default
 #
@@ -17,9 +17,10 @@
 # limitations under the License.
 #
 
-default['openstack']['omnibus']['enabled_services'] = [
-  'identity'
-]
+default['openstack']['omnibus']['enabled_services'] = %w{
+  identity
+  image
+}
 
 default['openstack']['omnibus']['services'] = {
   'identity' => {
@@ -33,15 +34,34 @@ default['openstack']['omnibus']['services'] = {
       }
     }
   },
+  'image' => {
+    'project_name' => 'glance',
+    'venv' => '/opt/openstack/glance',
+    'config_dir' => '/etc/glance',
+    'services' => {
+      'glance-api' => {
+        'command' => 'bin/glance-api',
+        'user' => 'glance',
+      },
+      'glance-registry' => {
+        'command' => 'bin/glance-registry',
+        'user' => 'glance',
+      },
+    }
+  },
 }
 
-default['openstack']['omnibus']['enabled_clients'] = [
-  'identity'
-]
+default['openstack']['omnibus']['enabled_clients'] = %w{
+  identity
+  image
+}
 default['openstack']['omnibus']['clients'] = {
   'identity' => {
     'project_name' => 'keystoneclient',
-  }
+  },
+  'image' => {
+    'project_name' => 'glanceclient',
+  },
 }
 
 # upstart
