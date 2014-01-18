@@ -38,11 +38,11 @@ default['openstack']['omnibus']['services'] = {
 default['openstack']['omnibus']['enabled_clients'] = [
   'identity'
 ]
-default['openstack']['omnibus']['clients'] = [
+default['openstack']['omnibus']['clients'] = {
   'identity' => {
     'project_name' => 'keystoneclient',
   }
-]
+}
 
 # upstart
 default['openstack']['omnibus']['upstart_job_dir'] = '/etc/init/'
