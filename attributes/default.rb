@@ -23,6 +23,7 @@ default['openstack']['omnibus']['enabled_services'] = [
 
 default['openstack']['omnibus']['services'] = {
   'identity' => {
+    'project_name' => 'keystone',
     'venv' => '/opt/openstack/keystone',
     'config_dir' => '/etc/keystone',
     'services' => {
@@ -34,8 +35,13 @@ default['openstack']['omnibus']['services'] = {
   },
 }
 
+default['openstack']['omnibus']['enabled_clients'] = [
+  'identity'
+]
 default['openstack']['omnibus']['clients'] = [
-  'keystoneclient',
+  'identity' => {
+    'project_name' => 'keystoneclient',
+  }
 ]
 
 # upstart

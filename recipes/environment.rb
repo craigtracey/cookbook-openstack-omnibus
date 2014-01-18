@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: openstack-omnibus
-# Recipe:: default
+# Recipe:: node_attributes
 #
 # Copyright 2014, Craig Tracey <craigtracey@gmail.com>
 #
@@ -17,6 +17,16 @@
 # limitations under the License.
 #
 
-include_recipe 'openstack-omnibus::environment'
-include_recipe 'openstack-omnibus::node_attributes'
-include_recipe 'openstack-omnibus::upstart_services'
+enabled_services = node['openstack']['omnibus']['enabled_services']
+enabled_clients = node['openstack']['omnibus']['enabled_clients']
+
+# we do this in 2 parts because we want the clients to be front of path
+enabled_services.each do |service|
+  project_name = node['openstack']['omnibus']['services'][service]['project_name']
+  ENV['PATH'] = "/opt/openstack/#{project_name}/bin:#{ENV['PATH']}"
+end
+
+enabled_clients.each do |client|
+  project_name = node['openstack']['omnibus']['clients'][client]['project_name']
+  ENV['PATH'] = "/opt/openstack/#{project_name}/bin:#{ENV['PATH']}"
+end
