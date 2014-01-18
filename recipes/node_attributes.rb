@@ -25,3 +25,10 @@ if enabled_services.include? 'identity'
     node.set['openstack']['identity']['platform']["#{type}_packages"] = []
   end
 end
+
+if enabled_services.include? 'image'
+  %w{image image_client swift mysql_python postgresql_python}.each do |type|
+    node.set['openstack']['image']['platform']["#{type}_packages"] = []
+  end
+end
+
