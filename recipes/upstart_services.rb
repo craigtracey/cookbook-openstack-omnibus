@@ -45,5 +45,10 @@ project_services.each do |project|
       # dont restart for now...or ever perhaps
       # notifies :restart, "service[#{service}]", :delayed
     end
+
+    link "/etc/init.d/#{service}" do
+      to '/lib/init/upstart-job'
+    end
+
   end
 end
