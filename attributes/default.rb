@@ -27,10 +27,11 @@ default['openstack']['omnibus']['services'] = {
     'project_name' => 'keystone',
     'venv' => '/opt/openstack/keystone',
     'config_dir' => '/etc/keystone',
+    'log_dir' => '/var/log/keystone',
+    'user' => 'keystone',
     'services' => {
       'keystone' => {
         'command' => 'bin/keystone-all',
-        'user' => 'keystone',
       }
     }
   },
@@ -38,14 +39,14 @@ default['openstack']['omnibus']['services'] = {
     'project_name' => 'glance',
     'venv' => '/opt/openstack/glance',
     'config_dir' => '/etc/glance',
+    'log_dir' => '/var/log/glance',
+    'user' => 'glance',
     'services' => {
       'glance-api' => {
         'command' => 'bin/glance-api',
-        'user' => 'glance',
       },
       'glance-registry' => {
         'command' => 'bin/glance-registry',
-        'user' => 'glance',
       },
     }
   },

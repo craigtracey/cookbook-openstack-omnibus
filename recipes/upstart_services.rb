@@ -24,6 +24,7 @@ project_services = node['openstack']['omnibus']['enabled_services']
 
 project_services.each do |project|
   project_params = node['openstack']['omnibus']['services'][project]
+  project_user = project_params.user
   project_venv = project_params.venv
   project_config_dir = project_params.config_dir
   services = project_params.services
@@ -37,7 +38,7 @@ project_services.each do |project|
         upstart_job_suffix: upstart_job_suffix,
         service_name: service,
         service_command: service_params.command,
-        service_user: service_params.user,
+        service_user: project_user,
         project_venv: project_venv,
         project_config_dir: project_config_dir
       )

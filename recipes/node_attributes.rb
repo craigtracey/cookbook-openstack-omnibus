@@ -31,4 +31,3 @@ if enabled_services.include? 'image'
     node.set['openstack']['image']['platform']["#{type}_packages"] = []
   end
 end
-
