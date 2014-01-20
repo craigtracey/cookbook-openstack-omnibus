@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+include_recipe 'openstack-omnibus::setup'
 include_recipe 'openstack-omnibus::environment'
 include_recipe 'openstack-omnibus::node_attributes'
 include_recipe 'openstack-omnibus::upstart_services'
