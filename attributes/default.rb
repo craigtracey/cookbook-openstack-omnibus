@@ -22,6 +22,7 @@ default['openstack']['omnibus']['package_url'] = nil
 default['openstack']['omnibus']['enabled_services'] = %w{
   identity
   image
+  compute
 }
 
 default['openstack']['omnibus']['services'] = {
@@ -52,11 +53,51 @@ default['openstack']['omnibus']['services'] = {
       },
     }
   },
+  'compute' => {
+    'project_name' => 'nova',
+    'venv' => '/opt/openstack/nova',
+    'config_dir' => '/etc/nova',
+    'log_dir' => '/var/log/nova',
+    'user' => 'nova',
+    'services' => {
+      'nova-api-os-compute' => {
+        'command' => 'bin/nova-api-os-compute'
+      },
+      'nova-conductor' => {
+        'command' => 'bin/nova-conductor'
+      },
+      'nova-compute' => {
+        'command' => 'bin/nova-compute'
+      },
+      'nova-scheduler' => {
+        'command' => 'bin/nova-scheduler'
+      },
+      'nova-api-metadata' => {
+        'command' => 'bin/nova-api-metadata'
+      },
+      'nova-api-ec2' => {
+        'command' => 'bin/nova-api-ec2'
+      },
+      'nova-cert' => {
+        'command' => 'bin/nova-cet'
+      },
+      'nova-vncproxy' => {
+        'command' => 'bin/nova-vncproxy'
+      },
+      'nova-consoleauth' => {
+        'command' => 'bin/nova-consoleauth'
+      },
+      'nova-network' => {
+        'command' => 'bin/nova-network'
+      },
+    }
+  },
 }
 
 default['openstack']['omnibus']['enabled_clients'] = %w{
   identity
   image
+  compute
 }
 default['openstack']['omnibus']['clients'] = {
   'identity' => {
@@ -65,6 +106,10 @@ default['openstack']['omnibus']['clients'] = {
   'image' => {
     'project_name' => 'glanceclient',
   },
+  'compute' => {
+    'project_name' => 'novaclient',
+  },
+
 }
 
 # upstart
