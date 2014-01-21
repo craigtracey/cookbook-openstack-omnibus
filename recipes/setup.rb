@@ -25,7 +25,7 @@ enabled_services.each do |service|
 
   user username do
     system true
-    shell "/bin/false"
+    shell '/bin/false'
   end
 
   directory log_dir do
