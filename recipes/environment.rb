@@ -21,12 +21,26 @@ enabled_services = node['openstack']['omnibus']['enabled_services']
 enabled_clients = node['openstack']['omnibus']['enabled_clients']
 
 # we do this in 2 parts because we want the clients to be front of path
-enabled_services.each do |service|
-  project_name = node['openstack']['omnibus']['services'][service]['project_name']
-  ENV['PATH'] = "/opt/openstack/#{project_name}/bin:#{ENV['PATH']}"
-end
-
+env = []
 enabled_clients.each do |client|
   project_name = node['openstack']['omnibus']['clients'][client]['project_name']
-  ENV['PATH'] = "/opt/openstack/#{project_name}/bin:#{ENV['PATH']}"
+  env.push "/opt/openstack/#{project_name}/bin"
+end
+
+enabled_services.each do |service|
+  project_name = node['openstack']['omnibus']['services'][service]['project_name']
+  env.push "/opt/openstack/#{project_name}/bin"
+end
+
+environment = env.join(':')
+ENV['PATH'] = "#{environment}:#{ENV['PATH']}"
+
+template '/etc/profile.d/omnibus-openstack.sh' do
+  source 'omnibus-openstack-profile.erb'
+  mode 0755
+  owner 'root'
+  group 'root'
+  variables(
+    environment: environment
+  )
 end
