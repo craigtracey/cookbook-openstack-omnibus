@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+default['openstack']['omnibus']['package_url'] = nil
+
 default['openstack']['omnibus']['enabled_services'] = %w{
   identity
   image
