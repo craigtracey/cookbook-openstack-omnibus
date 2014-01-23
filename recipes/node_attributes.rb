@@ -31,3 +31,26 @@ if enabled_services.include? 'image'
     node.set['openstack']['image']['platform']["#{type}_packages"] = []
   end
 end
+
+if enabled_services.include? 'compute'
+  %w{
+    mysql_python
+    postgresql_python
+    api_ec2
+    api_os_compute
+    memcache_python
+    neutron_python
+    compute_api_metadata
+    compute_compute
+    compute_network
+    compute_scheduler
+    compute_conductor
+    compute_vncproxy
+    compute_vncproxy_consoleauth
+    compute_cert
+    common
+  }.each do |type|
+    node.set['openstack']['compute']['platform']["#{type}_packages"] = []
+  end
+end
+
