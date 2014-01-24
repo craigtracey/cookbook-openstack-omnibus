@@ -22,6 +22,7 @@ enabled_services = node['openstack']['omnibus']['enabled_services']
 enabled_services.each do |service|
   log_dir = node['openstack']['omnibus']['services'][service]['log_dir']
   username = node['openstack']['omnibus']['services'][service]['user']
+  project_name = node['openstack']['omnibus']['services'][service]['project_name']
 
   user username do
     system true
@@ -34,4 +35,19 @@ enabled_services.each do |service|
     mode 0755
     action :create
   end
+
+  directory "/etc/#{project_name}" do
+    owner "root"
+    group "root"
+    mode 0644
+    action :create
+  end
+
+  # while i hate the execute resource, there is really
+  # no better way to do this
+  execute "Copy default configuration from #{service}" do
+    command "cp -R /opt/openstack/#{project_name}/etc/* /etc/#{project_name}"
+    action :run
+  end
+
 end
