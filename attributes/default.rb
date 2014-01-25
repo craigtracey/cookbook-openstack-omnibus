@@ -94,6 +94,24 @@ default['openstack']['omnibus']['services'] = {
       },
     }
   },
+  'block-storage' => {
+    'project_name' => 'cinder',
+    'venv' => '/opt/openstack/cinder',
+    'config_dir' => '/etc/cinder',
+    'log_dir' => '/var/log/cinder',
+    'user' => 'cinder',
+    'services' => {
+      'cinder-api' => {
+        'command' => 'bin/cinder-api'
+      },
+      'cinder-scheduler' => {
+        'command' => 'bin/cinder-scheduler'
+      },
+      'cinder-volume' => {
+        'command' => 'bin/cinder-volume'
+      }
+    }
+  }
 }
 
 default['openstack']['omnibus']['enabled_clients'] = %w{
