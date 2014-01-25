@@ -30,6 +30,12 @@ project_services.each do |project|
   services = project_params.services
 
   services.each do |service, service_params|
+
+    service_config_files = []
+    if service_params.has_key? 'config_files'
+      service_config_files = service_params.config_files
+    end
+
     template "#{upstart_job_dir}/#{service}#{upstart_job_suffix}" do
       source 'upstart/openstack-service.erb'
       mode 0644
@@ -40,7 +46,8 @@ project_services.each do |project|
         service_command: service_params.command,
         service_user: project_user,
         project_venv: project_venv,
-        project_config_dir: project_config_dir
+        project_config_dir: project_config_dir,
+        config_files: service_config_files
       )
       # dont restart for now...or ever perhaps
       # notifies :restart, "service[#{service}]", :delayed

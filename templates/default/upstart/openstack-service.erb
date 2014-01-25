@@ -6,4 +6,4 @@ respawn
 exec start-stop-daemon --start \
                        --chuid <%= @service_user %> \
                        --exec <%= @project_venv %>/<%= @service_command %> \
-                       -- --config-dir <%= @project_config_dir %>
+                       -- <% for conf in @config_files -%>--config-file <%= conf %><% end %> --config-dir <%= @project_config_dir %>

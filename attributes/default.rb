@@ -47,9 +47,11 @@ default['openstack']['omnibus']['services'] = {
     'services' => {
       'glance-api' => {
         'command' => 'bin/glance-api',
+        'config_files' => ['/etc/glance/glance-api.conf']
       },
       'glance-registry' => {
         'command' => 'bin/glance-registry',
+        'config_files' => ['/etc/glance/glance-registry.conf']
       },
     }
   },
