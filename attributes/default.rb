@@ -122,12 +122,15 @@ default['openstack']['omnibus']['enabled_clients'] = %w{
 default['openstack']['omnibus']['clients'] = {
   'identity' => {
     'project_name' => 'keystoneclient',
+    'client_name' => 'keystone'
   },
   'image' => {
     'project_name' => 'glanceclient',
+    'client_name' => 'glance'
   },
   'compute' => {
     'project_name' => 'novaclient',
+    'client_name' => 'nova'
   },
 
 }
