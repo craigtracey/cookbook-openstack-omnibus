@@ -118,6 +118,8 @@ default['openstack']['omnibus']['enabled_clients'] = %w{
   identity
   image
   compute
+  network
+  object-storage
 }
 default['openstack']['omnibus']['clients'] = {
   'identity' => {
@@ -132,7 +134,14 @@ default['openstack']['omnibus']['clients'] = {
     'project_name' => 'novaclient',
     'client_name' => 'nova'
   },
-
+  'network' => {
+    'project_name' => 'neutronclient',
+    'client_name' => 'neutron'
+  },
+  'object-storage' => {
+    'project_name' => 'swiftclient',
+    'client_name' => 'swift'
+  },
 }
 
 # upstart
