@@ -19,6 +19,11 @@
 
 include_recipe 'openstack-omnibus::package'
 include_recipe 'openstack-omnibus::setup'
-include_recipe 'openstack-omnibus::environment'
+case node['openstack']['omnibus']['client_install_method']
+when 'environment'
+  include_recipe 'openstack-omnibus::environment'
+when 'upstart'
+  include_recipe 'openstack-omnibus::clients'
+end
 include_recipe 'openstack-omnibus::node_attributes'
 include_recipe 'openstack-omnibus::upstart_services'

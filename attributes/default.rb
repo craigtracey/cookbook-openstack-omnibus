@@ -114,6 +114,7 @@ default['openstack']['omnibus']['services'] = {
   }
 }
 
+default['openstack']['omnibus']['client_install_method'] = 'upstart'
 default['openstack']['omnibus']['enabled_clients'] = %w{
   identity
   image
