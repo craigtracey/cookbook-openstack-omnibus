@@ -20,6 +20,9 @@
 enabled_services = node['openstack']['omnibus']['enabled_services']
 
 enabled_services.each do |service|
+
+  next if service == 'dashboard'
+
   log_dir = node['openstack']['omnibus']['services'][service]['log_dir']
   username = node['openstack']['omnibus']['services'][service]['user']
   project_name = node['openstack']['omnibus']['services'][service]['project_name']

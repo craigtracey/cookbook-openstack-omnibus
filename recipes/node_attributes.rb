@@ -54,3 +54,14 @@ if enabled_services.include? 'compute'
   end
 end
 
+if enabled_services.include? 'dashboard'
+  %w{mysql_python
+     postgresql_python
+     db2_python
+     memcache_python
+     horizon
+  }.each do |type|
+    node.set['openstack']['dashboard']['platform']["#{type}_packages"] = []
+  end
+  node.set['openstack']['dashboard']['dash_path'] = "/opt/openstack/horizon"
+end

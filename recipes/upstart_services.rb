@@ -23,6 +23,9 @@ upstart_job_suffix = node['openstack']['omnibus']['upstart_job_suffix']
 project_services = node['openstack']['omnibus']['enabled_services']
 
 project_services.each do |project|
+
+  next if project == 'dashboard'
+
   project_params = node['openstack']['omnibus']['services'][project]
   project_user = project_params.user
   project_venv = project_params.venv

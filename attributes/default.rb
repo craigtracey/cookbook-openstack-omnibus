@@ -23,6 +23,7 @@ default['openstack']['omnibus']['enabled_services'] = %w{
   identity
   image
   compute
+  dashboard
 }
 
 default['openstack']['omnibus']['services'] = {
