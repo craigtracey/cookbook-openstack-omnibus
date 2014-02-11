@@ -33,6 +33,9 @@ default['openstack']['omnibus']['services'] = {
     'config_dir' => '/etc/keystone',
     'log_dir' => '/var/log/keystone',
     'user' => 'keystone',
+    'commands' => [
+      'bin/keystone-manage'
+    ],
     'services' => {
       'keystone' => {
         'command' => 'bin/keystone-all',
