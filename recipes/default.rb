@@ -18,6 +18,7 @@
 #
 
 include_recipe 'openstack-omnibus::package'
+include_recipe 'openstack-omnibus::dashboard'
 include_recipe 'openstack-omnibus::setup'
 case node['openstack']['omnibus']['client_install_method']
 when 'environment'
