@@ -64,4 +64,5 @@ if enabled_services.include? 'dashboard'
     node.set['openstack']['dashboard']['platform']["#{type}_packages"] = []
   end
   node.set['openstack']['dashboard']['dash_path'] = "/opt/openstack/horizon"
+  node.set['openstack']['dashboard']['wsgi_path'] = node['openstack']['dashboard']['dash_path'] + '/wsgi/django.wsgi'
 end
