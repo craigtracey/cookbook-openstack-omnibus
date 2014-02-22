@@ -19,8 +19,8 @@
 
 if node['openstack']['omnibus']['enabled_services'].include? 'dashboard'
 
-  link "/opt/openstack/horizon/openstack_dashboard/local/local_settings.py" do
-    to "/etc/openstack-dashboard/local/local_settings.py"
+  link '/opt/openstack/horizon/openstack_dashboard/local/local_settings.py' do
+    to '/etc/openstack-dashboard/local/local_settings.py'
   end
 
 end

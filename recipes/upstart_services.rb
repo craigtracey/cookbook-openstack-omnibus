@@ -35,7 +35,7 @@ project_services.each do |project|
   services.each do |service, service_params|
 
     service_config_files = []
-    if service_params.has_key? 'config_files'
+    if service_params.key? 'config_files'
       service_config_files = service_params.config_files
     end
 

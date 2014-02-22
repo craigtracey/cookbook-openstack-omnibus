@@ -40,8 +40,8 @@ enabled_services.each do |service|
   end
 
   directory "/etc/#{project_name}" do
-    owner "root"
-    group "root"
+    owner 'root'
+    group 'root'
     mode 0644
     action :create
   end
