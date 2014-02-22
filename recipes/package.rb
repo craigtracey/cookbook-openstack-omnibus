@@ -17,13 +17,22 @@
 # limitations under the License.
 #
 
-package = node['openstack']['omnibus']['package_url']
-unless package.nil?
-  bash 'install openstack' do
-    user 'root'
-    cwd '/tmp'
-    code <<-EOH
-    URL='#{package}'; FILE=`mktemp`; wget "$URL" -qO $FILE && sudo dpkg -i $FILE; rm $FILE
-    EOH
+package_install_method = node['openstack']['omnibus']['package_install_method']
+
+case package_install_method
+when 'repo'
+  package node['openstack']['omnibus']['package_name'] do
+    action :install
+  end
+when 'url'
+  package = node['openstack']['omnibus']['package_url']
+  unless package.nil?
+    bash 'install openstack' do
+      user 'root'
+      cwd '/tmp'
+      code <<-EOH
+      URL='#{package}'; FILE=`mktemp`; wget "$URL" -qO $FILE && sudo dpkg -i $FILE; rm $FILE
+      EOH
+    end
   end
 end
