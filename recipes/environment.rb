@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-enabled_services = node['openstack']['omnibus']['enabled_services']
+enabled_projects = node['openstack']['omnibus']['enabled_services']
 enabled_clients = node['openstack']['omnibus']['enabled_clients']
 
 # we do this in 2 parts because we want the clients to be front of path
@@ -27,7 +27,7 @@ enabled_clients.each do |client|
   env.push "/opt/openstack/#{project_name}/bin"
 end
 
-enabled_services.each do |service|
+enabled_projects.each do |service|
   project_name = node['openstack']['omnibus']['services'][service]['project_name']
   env.push "/opt/openstack/#{project_name}/bin"
 end

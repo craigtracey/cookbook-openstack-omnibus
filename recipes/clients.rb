@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-node['openstack']['omnibus']['enabled_services'].each do |service|
+node['openstack']['omnibus']['enabled_projects'].each do |service|
 
   next if service == 'dashboard'
 

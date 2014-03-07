@@ -17,22 +17,22 @@
 # limitations under the License.
 #
 
-enabled_services = node['openstack']['omnibus']['enabled_services']
+enabled_projects = node['openstack']['omnibus']['enabled_services']
 
 # this is not ideal, but he stackforge cookbooks make this a reality
-if enabled_services.include? 'identity'
+if enabled_projects.include? 'identity'
   %w{keystone mysql_python postgresql_python memcache_python}.each do |type|
     node.set['openstack']['identity']['platform']["#{type}_packages"] = []
   end
 end
 
-if enabled_services.include? 'image'
+if enabled_projects.include? 'image'
   %w{image image_client swift mysql_python postgresql_python}.each do |type|
     node.set['openstack']['image']['platform']["#{type}_packages"] = []
   end
 end
 
-if enabled_services.include? 'compute'
+if enabled_projects.include? 'compute'
   %w{
     mysql_python
     postgresql_python
@@ -54,7 +54,7 @@ if enabled_services.include? 'compute'
   end
 end
 
-if enabled_services.include? 'dashboard'
+if enabled_projects.include? 'dashboard'
   %w{mysql_python
      postgresql_python
      db2_python

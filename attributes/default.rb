@@ -21,7 +21,7 @@ default['openstack']['omnibus']['package_install_method'] = 'repo'
 default['openstack']['omnibus']['package_name'] = 'openstack'
 default['openstack']['omnibus']['package_url'] = nil
 
-default['openstack']['omnibus']['enabled_services'] = %w{
+default['openstack']['omnibus']['enabled_projects'] = %w{
   identity
   image
   compute

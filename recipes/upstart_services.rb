@@ -20,7 +20,7 @@
 upstart_job_dir = node['openstack']['omnibus']['upstart_job_dir']
 upstart_job_suffix = node['openstack']['omnibus']['upstart_job_suffix']
 
-project_services = node['openstack']['omnibus']['enabled_services']
+project_services = node['openstack']['omnibus']['enabled_projects']
 
 project_services.each do |project|
 

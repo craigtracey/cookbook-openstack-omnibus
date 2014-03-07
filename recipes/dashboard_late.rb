@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-if node['openstack']['omnibus']['enabled_services'].include? 'dashboard'
+if node['openstack']['omnibus']['enabled_projects'].include? 'dashboard'
 
   # I really, really hate this kind of stuff, but envvars seems to not be
   # supported by the apache2 cookbooks, nor does apache2 seem to have any
