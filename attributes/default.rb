@@ -20,6 +20,7 @@
 default['openstack']['omnibus']['package_install_method'] = 'repo'
 default['openstack']['omnibus']['package_name'] = 'openstack'
 default['openstack']['omnibus']['package_url'] = nil
+default['openstack'[['omnibus']['project_path'] = '/opt/openstack'
 
 default['openstack']['omnibus']['enabled_projects'] = %w{
   identity
@@ -31,7 +32,7 @@ default['openstack']['omnibus']['enabled_projects'] = %w{
 default['openstack']['omnibus']['services'] = {
   'identity' => {
     'project_name' => 'keystone',
-    'venv' => '/opt/openstack/keystone',
+    'venv' => 'keystone',
     'config_dir' => '/etc/keystone',
     'log_dir' => '/var/log/keystone',
     'user' => 'keystone',
@@ -46,7 +47,7 @@ default['openstack']['omnibus']['services'] = {
   },
   'image' => {
     'project_name' => 'glance',
-    'venv' => '/opt/openstack/glance',
+    'venv' => 'glance',
     'config_dir' => '/etc/glance',
     'log_dir' => '/var/log/glance',
     'user' => 'glance',
@@ -63,7 +64,7 @@ default['openstack']['omnibus']['services'] = {
   },
   'compute' => {
     'project_name' => 'nova',
-    'venv' => '/opt/openstack/nova',
+    'venv' => 'nova',
     'config_dir' => '/etc/nova',
     'log_dir' => '/var/log/nova',
     'user' => 'nova',
@@ -102,7 +103,7 @@ default['openstack']['omnibus']['services'] = {
   },
   'block-storage' => {
     'project_name' => 'cinder',
-    'venv' => '/opt/openstack/cinder',
+    'venv' => 'cinder',
     'config_dir' => '/etc/cinder',
     'log_dir' => '/var/log/cinder',
     'user' => 'cinder',

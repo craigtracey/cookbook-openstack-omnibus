@@ -28,7 +28,8 @@ project_services.each do |project|
 
   project_params = node['openstack']['omnibus']['services'][project]
   project_user = project_params.user
-  project_venv = project_params.venv
+  project_venv = File.join(node['openstack']['omnibus']['project_name'],
+                           project_params.venv)
   project_config_dir = project_params.config_dir
   services = project_params.services
 
