@@ -20,12 +20,11 @@
 require 'set'
 
 module ::OpenstackOmnibus
-
   def get_enabled_projects
     projects = Set.new
     node['openstack']['omnibus']['enabled_services'].each do |service|
       parts = service.split('.')
-      raise "Incorrect enabled_service format '#{service}'" if parts.length > 2
+      fail "Incorrect enabled_service format '#{service}'" if parts.length > 2
       projects.add(parts[0])
     end
     projects.to_a
@@ -35,12 +34,10 @@ module ::OpenstackOmnibus
     expanded_services = []
     node['openstack']['omnibus']['enabled_services'].each do |service|
       parts = service.split('.')
-      raise "Incorrect enabled_service format '#{service}'" if parts.length > 2
+      fail "Incorrect enabled_service format '#{service}'" if parts.length > 2
       if parts.length == 1
         project = parts[0]
-        if !node['openstack']['omnibus']['projects'].keys.include? project
-          return []
-        end
+        return [] unless node['openstack']['omnibus']['projects'].keys.include? project
         proj_services = node['openstack']['omnibus']['projects'][project]['services'].keys
         proj_services.each do |service_name|
           expanded_services.push([project, service_name])
@@ -51,5 +48,4 @@ module ::OpenstackOmnibus
     end
     expanded_services
   end
-
 end
