@@ -17,17 +17,33 @@
 # limitations under the License.
 #
 
-enabled_projects = node['openstack']['omnibus']['enabled_services']
+class ::Chef::Recipe
+  include ::OpenstackOmnibus
+end
+
+enabled_projects = get_enabled_projects
+omnibus_path = node['openstack']['omnibus']['omnibus_path']
 
 # this is not ideal, but he stackforge cookbooks make this a reality
 if enabled_projects.include? 'identity'
-  %w{keystone mysql_python postgresql_python memcache_python}.each do |type|
+  %w{
+    keystone
+    mysql_python
+    postgresql_python
+    memcache_python
+  }.each do |type|
     node.set['openstack']['identity']['platform']["#{type}_packages"] = []
   end
 end
 
 if enabled_projects.include? 'image'
-  %w{image image_client swift mysql_python postgresql_python}.each do |type|
+  %w{
+    image
+    image_client
+    swift
+    mysql_python
+    postgresql_python
+  }.each do |type|
     node.set['openstack']['image']['platform']["#{type}_packages"] = []
   end
 end
@@ -55,14 +71,16 @@ if enabled_projects.include? 'compute'
 end
 
 if enabled_projects.include? 'dashboard'
-  %w{mysql_python
-     postgresql_python
-     db2_python
-     memcache_python
-     horizon
+  %w{
+    mysql_python
+    postgresql_python
+    db2_python
+    memcache_python
+    horizon
   }.each do |type|
     node.set['openstack']['dashboard']['platform']["#{type}_packages"] = []
   end
-  node.set['openstack']['dashboard']['dash_path'] = '/opt/openstack/horizon'
+  node.set['openstack']['dashboard']['django_path'] = "#{omnibus_path}/horizon/openstack_dashboard"
+  node.set['openstack']['dashboard']['dash_path'] = '/etc/openstack-dashboard'
   node.set['openstack']['dashboard']['wsgi_path'] = node['openstack']['dashboard']['dash_path'] + '/wsgi/django.wsgi'
 end

@@ -17,9 +17,28 @@
 # limitations under the License.
 #
 
-if node['openstack']['omnibus']['enabled_projects'].include? 'dashboard'
+class ::Chef::Recipe
+  include ::OpenstackOmnibus
+end
 
-  link '/opt/openstack/horizon/openstack_dashboard/local/local_settings.py' do
+enabled_projects = get_enabled_projects
+
+if enabled_projects.include? 'dashboard'
+
+  omnibus_path = node['openstack']['omnibus']['omnibus_path']
+
+  user 'horizon' do
+    action :create
+  end
+
+  directory '/etc/openstack-dashboard' do
+    owner 'root'
+    group 'root'
+    mode  '0644'
+    action :create
+  end
+
+  link "#{omnibus_path}/horizon/openstack_dashboard/local/local_settings.py" do
     to '/etc/openstack-dashboard/local/local_settings.py'
   end
 

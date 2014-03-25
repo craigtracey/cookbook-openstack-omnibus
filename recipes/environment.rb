@@ -17,19 +17,23 @@
 # limitations under the License.
 #
 
-enabled_projects = node['openstack']['omnibus']['enabled_services']
+class ::Chef::Recipe
+  include ::OpenstackOmnibus
+end
+
+enabled_projects = get_enabled_projects
 enabled_clients = node['openstack']['omnibus']['enabled_clients']
+omnibus_path = node['openstack']['omnibus']['omnibus_path']
 
 # we do this in 2 parts because we want the clients to be front of path
 env = []
 enabled_clients.each do |client|
   project_name = node['openstack']['omnibus']['clients'][client]['project_name']
-  env.push "/opt/openstack/#{project_name}/bin"
+  env.push "#{omnibus_path}/#{project_name}/bin"
 end
 
-enabled_projects.each do |service|
-  project_name = node['openstack']['omnibus']['services'][service]['project_name']
-  env.push "/opt/openstack/#{project_name}/bin"
+enabled_projects.each do |project_name|
+  env.push "#{omnibus_path}/#{project_name}/bin"
 end
 
 environment = env.join(':')

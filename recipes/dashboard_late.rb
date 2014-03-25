@@ -17,20 +17,28 @@
 # limitations under the License.
 #
 
-if node['openstack']['omnibus']['enabled_projects'].include? 'dashboard'
+class ::Chef::Recipe
+  include ::OpenstackOmnibus
+end
+
+enabled_projects = get_enabled_projects
+
+if enabled_projects.include? 'dashboard'
 
   # I really, really hate this kind of stuff, but envvars seems to not be
   # supported by the apache2 cookbooks, nor does apache2 seem to have any
   # kind of conf.d for envvars, so this...heh. I will come up with a
   # better way to support this.
+  template '/etc/apache2/envvars' do
+    source 'apache_envvars.erb'
+    owner 'root'
+    group 'root'
+    mode '0644'
 
-  template "/etc/apache2/envvars" do
-    source "apache_envvars.erb"
-    owner "root"
-    group "root"
-    mode "0644"
-
-    notifies :restart, "service[apache2]"
+    notifies :restart, 'service[apache2]'
+    variables(
+      omnibus_path: node['openstack']['omnibus']['omnibus_path']
+    )
   end
 
 end

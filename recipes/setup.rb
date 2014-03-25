@@ -17,15 +17,21 @@
 # limitations under the License.
 #
 
-enabled_projects = node['openstack']['omnibus']['enabled_services']
+class ::Chef::Recipe
+  include ::OpenstackOmnibus
+end
 
-enabled_projects.each do |service|
+enabled_projects = get_enabled_projects
+enabled_projects.each do |project|
 
-  next if service == 'dashboard'
+  next if project == 'dashboard'
 
-  log_dir = node['openstack']['omnibus']['services'][service]['log_dir']
-  username = node['openstack']['omnibus']['services'][service]['user']
-  project_name = node['openstack']['omnibus']['services'][service]['project_name']
+  omnibus_path = node['openstack']['omnibus']['omnibus_path']
+  project_params = node['openstack']['omnibus']['projects'][project]
+
+  log_dir = project_params['log_dir']
+  username = project_params['user']
+  project_name = project_params['project_name']
 
   user username do
     system true
@@ -48,8 +54,8 @@ enabled_projects.each do |service|
 
   # while i hate the execute resource, there is really
   # no better way to do this
-  execute "Copy default configuration from #{service}" do
-    command "cp -R /opt/openstack/#{project_name}/etc/* /etc/#{project_name}"
+  execute "Copy default configuration from #{project}" do
+    command "cp -R #{omnibus_path}/#{project_name}/etc/* /etc/#{project_name}"
     action :run
   end
 

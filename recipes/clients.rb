@@ -17,26 +17,34 @@
 # limitations under the License.
 #
 
-node['openstack']['omnibus']['enabled_projects'].each do |service|
+class ::Chef::Recipe
+  include ::OpenstackOmnibus
+end
 
-  next if service == 'dashboard'
+enabled_projects = get_enabled_projects
+omnibus_path = node['openstack']['omnibus']['omnibus_path']
 
-  project_name = node['openstack']['omnibus']['services'][service]['project_name']
-  commands = node['openstack']['omnibus']['services'][service]['commands'] || []
+# service commands like: keystone-manage, nova-manage, etc.
+enabled_projects.each do |project|
+  next if project == 'dashboard'
+
+  project_name = node['openstack']['omnibus']['projects'][project]['project_name']
+  commands = node['openstack']['omnibus']['projects'][project]['commands'] || []
 
   commands.each do |command|
     client_name = File.basename command
     execute "update alternatives for #{client_name}" do
-      command "update-alternatives --install /usr/local/bin/#{client_name} #{client_name} /opt/openstack/#{project_name}/#{command} 100"
+      command "update-alternatives --install /usr/local/bin/#{client_name} #{client_name} #{omnibus_path}/#{project_name}/#{command} 100"
     end
   end
 end
 
+# project clients: glance, nova, keystone, etc.
 node['openstack']['omnibus']['enabled_clients'].each do |client|
   project_name = node['openstack']['omnibus']['clients'][client]['project_name']
   client_name = node['openstack']['omnibus']['clients'][client]['client_name']
 
   execute "update alternatives for #{client_name}" do
-    command "update-alternatives --install /usr/local/bin/#{client_name} #{client_name} /opt/openstack/#{project_name}/bin/#{client_name} 100"
+    command "update-alternatives --install /usr/local/bin/#{client_name} #{client_name} #{omnibus_path}/#{project_name}/bin/#{client_name} 100"
   end
 end
