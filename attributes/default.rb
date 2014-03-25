@@ -20,16 +20,16 @@
 default['openstack']['omnibus']['package_install_method'] = 'repo'
 default['openstack']['omnibus']['package_name'] = 'openstack'
 default['openstack']['omnibus']['package_url'] = nil
-default['openstack'[['omnibus']['project_path'] = '/opt/openstack'
+default['openstack']['omnibus']['omnibus_path'] = '/opt/openstack'
 
-default['openstack']['omnibus']['enabled_projects'] = %w{
+default['openstack']['omnibus']['enabled_services'] = %w{
   identity
   image
   compute
   dashboard
 }
 
-default['openstack']['omnibus']['services'] = {
+default['openstack']['omnibus']['projects'] = {
   'identity' => {
     'project_name' => 'keystone',
     'venv' => 'keystone',
@@ -41,7 +41,7 @@ default['openstack']['omnibus']['services'] = {
     ],
     'services' => {
       'keystone' => {
-        'command' => 'bin/keystone-all',
+        'command' => 'bin/keystone-all'
       }
     }
   },
@@ -59,7 +59,7 @@ default['openstack']['omnibus']['services'] = {
       'glance-registry' => {
         'command' => 'bin/glance-registry',
         'config_files' => ['/etc/glance/glance-registry.conf']
-      },
+      }
     }
   },
   'compute' => {
@@ -98,7 +98,7 @@ default['openstack']['omnibus']['services'] = {
       },
       'nova-network' => {
         'command' => 'bin/nova-network'
-      },
+      }
     }
   },
   'block-storage' => {
@@ -126,9 +126,8 @@ default['openstack']['omnibus']['enabled_clients'] = %w{
   identity
   image
   compute
-  network
-  object-storage
 }
+
 default['openstack']['omnibus']['clients'] = {
   'identity' => {
     'project_name' => 'keystoneclient',
@@ -149,7 +148,7 @@ default['openstack']['omnibus']['clients'] = {
   'object-storage' => {
     'project_name' => 'swiftclient',
     'client_name' => 'swift'
-  },
+  }
 }
 
 # upstart
