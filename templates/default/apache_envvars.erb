@@ -47,4 +47,4 @@ export LANG
 #export APACHE2_MAINTSCRIPT_DEBUG=1
 
 # For OpenStack Horizon via openstack-omnibus cookbook
-export LD_LIBRARY_PATH=/opt/openstack/embedded/lib
+export LD_LIBRARY_PATH=<%= @omnibus_path %>/embedded/lib:<%= @omnibus_path %>/embedded/lib/python2.7
