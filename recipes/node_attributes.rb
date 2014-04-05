@@ -26,30 +26,30 @@ omnibus_path = node['openstack']['omnibus']['omnibus_path']
 
 # this is not ideal, but he stackforge cookbooks make this a reality
 if enabled_projects.include? 'identity'
-  %w{
+  %w(
     keystone
     mysql_python
     postgresql_python
     memcache_python
-  }.each do |type|
+  ).each do |type|
     node.set['openstack']['identity']['platform']["#{type}_packages"] = []
   end
 end
 
 if enabled_projects.include? 'image'
-  %w{
+  %w(
     image
     image_client
     swift
     mysql_python
     postgresql_python
-  }.each do |type|
+  ).each do |type|
     node.set['openstack']['image']['platform']["#{type}_packages"] = []
   end
 end
 
 if enabled_projects.include? 'compute'
-  %w{
+  %w(
     mysql_python
     postgresql_python
     api_ec2
@@ -65,19 +65,19 @@ if enabled_projects.include? 'compute'
     compute_vncproxy_consoleauth
     compute_cert
     common
-  }.each do |type|
+  ).each do |type|
     node.set['openstack']['compute']['platform']["#{type}_packages"] = []
   end
 end
 
 if enabled_projects.include? 'dashboard'
-  %w{
+  %w(
     mysql_python
     postgresql_python
     db2_python
     memcache_python
     horizon
-  }.each do |type|
+  ).each do |type|
     node.set['openstack']['dashboard']['platform']["#{type}_packages"] = []
   end
   node.set['openstack']['dashboard']['django_path'] = "#{omnibus_path}/horizon/openstack_dashboard"
