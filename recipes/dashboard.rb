@@ -31,11 +31,12 @@ if enabled_projects.include? 'dashboard'
     action :create
   end
 
-  directory '/etc/openstack-dashboard' do
-    owner 'root'
-    group 'root'
-    mode  '0644'
-    action :create
+  directory '/etc/openstack-dashboard/local' do
+    owner     'root'
+    group     'horizon'
+    mode      '0644'
+    recursive true
+    action    :create
   end
 
   link "#{omnibus_path}/horizon/openstack_dashboard/local/local_settings.py" do
