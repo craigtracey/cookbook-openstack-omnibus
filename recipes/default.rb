@@ -28,4 +28,3 @@ when 'upstart'
 end
 include_recipe 'openstack-omnibus::node_attributes'
 include_recipe 'openstack-omnibus::upstart_services'
-include_recipe 'openstack-omnibus::dashboard_late'
