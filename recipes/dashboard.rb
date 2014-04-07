@@ -39,8 +39,8 @@ if enabled_projects.include? 'dashboard'
     action    :create
   end
 
-  link "#{omnibus_path}/horizon/openstack_dashboard/local/local_settings.py" do
-    to '/etc/openstack-dashboard/local/local_settings.py'
+  link '/etc/openstack-dashboard/local/local_settings.py' do
+    to "#{omnibus_path}/horizon/openstack_dashboard/local/local_settings.py"
   end
 
 end
