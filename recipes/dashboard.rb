@@ -25,8 +25,6 @@ enabled_projects = get_enabled_projects
 
 if enabled_projects.include? 'dashboard'
 
-  omnibus_path = node['openstack']['omnibus']['omnibus_path']
-
   user 'horizon' do
     action :create
   end
@@ -37,10 +35,6 @@ if enabled_projects.include? 'dashboard'
     mode      '0644'
     recursive true
     action    :create
-  end
-
-  link '/etc/openstack-dashboard/local/local_settings.py' do
-    to "#{omnibus_path}/horizon/openstack_dashboard/local/local_settings.py"
   end
 
 end
