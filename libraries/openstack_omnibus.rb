@@ -37,7 +37,7 @@ module ::OpenstackOmnibus
       fail "Incorrect enabled_service format '#{service}'" if parts.length > 2
       if parts.length == 1
         project = parts[0]
-        return [] unless node['openstack']['omnibus']['projects'].keys.include? project
+        next unless node['openstack']['omnibus']['projects'].keys.include? project
         proj_services = node['openstack']['omnibus']['projects'][project]['services'].keys
         proj_services.each do |service_name|
           expanded_services.push([project, service_name])
