@@ -17,22 +17,27 @@
 # limitations under the License.
 #
 
-package_install_method = node['openstack']['omnibus']['package_install_method']
-
-case package_install_method
+case node['openstack']['omnibus']['package_install_method']
 when 'repo'
-  package node['openstack']['omnibus']['package_name'] do
-    action :install
-  end
+  package node['openstack']['omnibus']['package_name']
 when 'url'
-  package = node['openstack']['omnibus']['package_url']
-  unless package.nil?
-    bash 'install openstack' do
-      user 'root'
-      cwd '/tmp'
-      code <<-EOH
-      URL='#{package}'; FILE=`mktemp`; wget "$URL" -qO $FILE && sudo dpkg -i $FILE; rm $FILE
-      EOH
+  package_url = node['openstack']['omnibus']['package_url']
+
+  unless package_url.nil?
+    package_name = package_url.split('/')[-1]
+    download_path = "/tmp/#{package_name}"
+
+    if ::File.exists?(download_path)
+      Chef::Log.info("#{download_path} already exists, skipping download")
+    else
+      remote_file download_path do
+        source package_url
+      end
+    end
+
+    dpkg_package package_name do
+      source download_path
+      options "-E"
     end
   end
 end
