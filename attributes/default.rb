@@ -90,8 +90,8 @@ default['openstack']['omnibus']['projects'] = {
       'nova-cert' => {
         'command' => 'bin/nova-cet'
       },
-      'nova-vncproxy' => {
-        'command' => 'bin/nova-vncproxy'
+      'nova-novncproxy' => {
+        'command' => 'bin/nova-novncproxy'
       },
       'nova-consoleauth' => {
         'command' => 'bin/nova-consoleauth'
