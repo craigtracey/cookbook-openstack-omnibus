@@ -104,6 +104,9 @@ default['openstack']['omnibus']['projects'] = {
       },
       'nova-network' => {
         'command' => 'bin/nova-network'
+      },
+      'nova-dhcpbridge' => {
+        'command' => 'bin/nova-dhcpbridge'
       }
     }
   },
