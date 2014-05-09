@@ -55,7 +55,14 @@ enabled_projects.each do |project|
   # while i hate the execute resource, there is really
   # no better way to do this
   execute "Copy default configuration from #{project}" do
-    command "cp -R #{omnibus_path}/#{project_name}/etc/* /etc/#{project_name}"
+    omnibus_project_etc_path = "#{omnibus_path}/#{project_name}/etc"
+    # some projects have configs in project/etc/project, whilst others have configs in
+    # project/etc/
+    if FileTest.directory?("#{omnibus_project_etc_path}/#{project_name}")
+      command "cp -R #{omnibus_project_etc_path}/#{project_name}/* /etc/#{project_name}"
+    else
+      command "cp -R #{omnibus_project_etc_path}/* /etc/#{project_name}"
+    end
     action :run
   end
 
