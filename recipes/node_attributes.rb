@@ -83,8 +83,6 @@ if enabled_projects.include? 'block-storage'
     cinder_scheduler
     cinder_scheduler_service
     cinder_ceph
-    cinder_iscsitarget
-    cinder_iscsitarget_service
     cinder_nfs
     cinder_emc
   ).each do |type|
