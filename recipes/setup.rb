@@ -52,18 +52,19 @@ enabled_projects.each do |project|
     action :create
   end
 
-  # while i hate the execute resource, there is really
-  # no better way to do this
-  execute "Copy default configuration from #{project}" do
-    omnibus_project_etc_path = "#{omnibus_path}/#{project_name}/etc"
-    # some projects have configs in project/etc/project, whilst others have configs in
-    # project/etc/
-    if FileTest.directory?("#{omnibus_project_etc_path}/#{project_name}")
-      command "cp -R #{omnibus_project_etc_path}/#{project_name}/* /etc/#{project_name}"
-    else
-      command "cp -R #{omnibus_project_etc_path}/* /etc/#{project_name}"
-    end
-    action :run
-  end
+  # some projects have configs in project/etc/project, whilst others have configs in
+  # project/etc/
+  # a ruby_block is used here as we need the evaluation to happen at execution time
+  # and not compile time when omnibus_path does not yet exist
+  ruby_block "Copy default configuration from #{project}" do
+    block do
+      omnibus_project_etc_path = "#{omnibus_path}/#{project_name}/etc"
 
+      if FileTest.directory?("#{omnibus_project_etc_path}/#{project_name}")
+        FileUtils.cp_r Dir.glob("#{omnibus_project_etc_path}/#{project_name}/*"), "/etc/#{project_name}"
+      else
+        FileUtils.cp_r Dir.glob("#{omnibus_project_etc_path}/*"), "/etc/#{project_name}"
+      end
+    end
+  end
 end
