@@ -51,6 +51,9 @@ default['openstack']['omnibus']['projects'] = {
     'config_dir' => '/etc/glance',
     'log_dir' => '/var/log/glance',
     'user' => 'glance',
+    'commands' => [
+      'bin/glance-manage'
+    ],
     'services' => {
       'glance-api' => {
         'command' => 'bin/glance-api',
@@ -68,6 +71,9 @@ default['openstack']['omnibus']['projects'] = {
     'config_dir' => '/etc/nova',
     'log_dir' => '/var/log/nova',
     'user' => 'nova',
+    'commands' => [
+      'bin/nova-manage'
+    ],
     'services' => {
       'nova-api-os-compute' => {
         'command' => 'bin/nova-api-os-compute'
@@ -98,6 +104,9 @@ default['openstack']['omnibus']['projects'] = {
       },
       'nova-network' => {
         'command' => 'bin/nova-network'
+      },
+      'nova-dhcpbridge' => {
+        'command' => 'bin/nova-dhcpbridge'
       }
     }
   },
@@ -107,6 +116,9 @@ default['openstack']['omnibus']['projects'] = {
     'config_dir' => '/etc/cinder',
     'log_dir' => '/var/log/cinder',
     'user' => 'cinder',
+    'commands' => [
+      'bin/cinder-manage'
+    ],
     'services' => {
       'cinder-api' => {
         'command' => 'bin/cinder-api'
