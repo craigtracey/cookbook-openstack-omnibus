@@ -70,6 +70,26 @@ if enabled_projects.include? 'compute'
   end
 end
 
+if enabled_projects.include? 'block-storage'
+  %w(
+    mysql_python
+    postgresql_python
+    cinder_common
+    cinder_api
+    cinder_api_service
+    cinder_client
+    cinder_volume
+    cinder_volume_service
+    cinder_scheduler
+    cinder_scheduler_service
+    cinder_ceph
+    cinder_nfs
+    cinder_emc
+  ).each do |type|
+    node.set['openstack']['block-storage']['platform']["#{type}_packages"] = []
+  end
+end
+
 if enabled_projects.include? 'dashboard'
   %w(
     mysql_python
